@@ -7,8 +7,8 @@ Every single asset was hand-drawn by me.
 
 ## 🎮 About the Game
 
-This is a 2D pixel game set in a world after a global catastrophe.  
-The player explores the environment, avoids dangers, and interacts with objects to survive.
+This is a 2D pixel turn-base game set in a world after a global catastrophe.  
+The player explores the environment, gains valuable loot, and avoids dangers to survive.
 
 > ⚠️ You might notice some redundant design patterns in the code.  
 > These were intentionally added as part of the assignment requirements — to include patterns even where they aren’t nessesarily needed... Yeah...
