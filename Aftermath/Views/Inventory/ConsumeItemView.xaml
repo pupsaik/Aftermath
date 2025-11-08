@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="Aftermath.Views.Inventory.ConsumeItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aftermath.Views.Inventory"
+             xmlns:convs="clr-namespace:Aftermath.UI.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.Resources>
+        <convs:ReferenceToVisibility x:Key="ReferenceToVisibility"/>
+        <convs:SignedNumberConverter x:Key="SignedNumberConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://application:,,,/Resources/Icons/ConsumableUsageWindow.png"/>
+        </Grid.Background>
+        <TextBlock Margin="20" FontSize="15">Do you want to consume <Run Text="{Binding Name}"/>?</TextBlock>
+        <Button Style="{StaticResource CloseButton}" Command="{Binding CloseCommand}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid Width="200" Height="150" DataContext="{Binding CharacterSelection}">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Icons/CharacterSelectEmpty.png"/>
+                    </Grid.Background>
+
+                    <Rectangle Width="200" Height="150" Fill="Transparent" Stroke="Red" StrokeThickness="3" Visibility="{Binding HasError, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                    <Image Source="{Binding Image}" Height="110" Width="90" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="13 0 0 8"/>
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0 10 16 0" Visibility="{Binding SelectedCharacter, Converter={StaticResource ReferenceToVisibility}}">
+
+                        <!-- Health -->
+                        <Grid Height="30" HorizontalAlignment="Right">
+                            <StackPanel Grid.Column="1">
+                                <Grid Height="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="pack://application:,,,/Resources/Icons/Items/Health.png" Height="10" Width="10" VerticalAlignment="Bottom"/>
+                                    <TextBlock Grid.Column="1" Foreground="White" HorizontalAlignment="Right" Margin="3,3,0,0" FontSize="10">
+                                        <Run Text="{Binding SelectedCharacterCurrentHealth}"/>
+                                        <Run Text="/"/>
+                                        <Run Text="{Binding SelectedCharacterMaxHealth}"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Image Source="{Binding HealthBarIcon}" Width="80" Height="10"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Hunger -->
+                        <Grid Height="30" HorizontalAlignment="Right">
+                            <StackPanel Grid.Column="1">
+                                <Grid Height="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="pack://application:,,,/Resources/Icons/Items/Hunger.png" Height="10" Width="10" VerticalAlignment="Bottom"/>
+                                    <TextBlock Grid.Column="1" Foreground="White" HorizontalAlignment="Right" Margin="3,3,0,0" FontSize="10">
+                                        <Run Text="{Binding SelectedCharacterCurrentHunger}"/>
+                                        <Run Text="/"/>
+                                        <Run Text="{Binding SelectedCharacterMaxHunger}"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Image Source="{Binding HungerBarIcon}" Width="80" Height="10"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Thirst -->
+                        <Grid Height="30" HorizontalAlignment="Right">
+                            <StackPanel Grid.Column="1">
+                                <Grid Height="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="pack://application:,,,/Resources/Icons/Items/Thirst.png" Height="10" Width="10" VerticalAlignment="Bottom"/>
+                                    <TextBlock Grid.Column="1" Foreground="White" HorizontalAlignment="Right" Margin="3,3,0,0" FontSize="10">
+                                        <Run Text="{Binding SelectedCharacterCurrentThirst}"/>
+                                        <Run Text="/"/>
+                                        <Run Text="{Binding SelectedCharacterMaxThirst}"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Image Source="{Binding ThirstBarIcon}" Width="80" Height="10"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Sanity -->
+                        <Grid Height="30" HorizontalAlignment="Right">
+
+                            <StackPanel Grid.Column="1">
+                                <Grid Height="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="pack://application:,,,/Resources/Icons/Items/Sanity.png" Height="10" Width="10" VerticalAlignment="Bottom"/>
+                                    <TextBlock Grid.Column="1" Foreground="White" HorizontalAlignment="Right" Margin="3,3,0,0" FontSize="10">
+                                        <Run Text="{Binding SelectedCharacterCurrentSanity}"/>
+                                        <Run Text="/"/>
+                                        <Run Text="{Binding SelectedCharacterMaxSanity}"/>
+                                    </TextBlock>
+                                </Grid>
+                                <Image Source="{Binding SanityBarIcon}" Width="80" Height="10"/>
+                            </StackPanel>
+                        </Grid>
+
+                    </StackPanel>
+                </Grid>
+
+                <ItemsControl ItemsSource="{Binding CharacterList}">
+                    <ItemsControl.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/Resources/Icons/CharacterSelectVerticalPanel.png"/>
+                    </ItemsControl.Background>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0 6 0 0" Cursor="Hand" Width="40">
+                                <Image Source="pack://application:,,,/Resources/Icons/CharacterSelectBackground.png" Visibility="Visible" Name="Background" Width="30" Height="30"/>
+                                <Image Width="25" Height="25" Source="{Binding Image}"/>
+
+                                <Grid.InputBindings>
+                                    <MouseBinding Gesture="LeftClick" Command="{Binding CharacterSelectedCommand}"/>
+                                </Grid.InputBindings>
+                            </Grid>
+
+                            <DataTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Background" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </WrapPanel>
+
+            <Border Grid.Column="1" Margin="10" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/Icons/BuildingActionTextBlockBackground.png"/>
+                </Border.Background>
+
+                <ItemsControl ItemsSource="{Binding ConsumptionEffectVMs}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Margin="0 0 5 0" Text="{Binding Amount, Converter={StaticResource SignedNumberConverter}}"/>
+                                <Image Source="{Binding Image}" Margin="0 0 5 5" Height="15" Width="15" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Type}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <Button Style="{StaticResource ActionButton}" Command="{Binding ConsumeCommand}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Margin="20" Content="Consume"/>
+        </Grid>
+    </Grid>
+</UserControl>

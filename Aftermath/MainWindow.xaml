@@ -1,0 +1,36 @@
+﻿<Window x:Class="Aftermath.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aftermath"
+        xmlns:views="clr-namespace:Aftermath.Views"
+        xmlns:inv="clr-namespace:Aftermath.Views.Inventory"
+        xmlns:map="clr-namespace:Aftermath.Views.Map"
+        xmlns:vms="clr-namespace:Aftermath.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        WindowState="Maximized"
+        WindowStyle="None">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vms:MapVM}">
+            <map:MapView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vms:BaseVM}">
+            <views:BaseView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vms:InventoryVM}">
+            <inv:InventoryView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vms:StartVM}">
+            <views:StartView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <ContentControl Content="{Binding CurrentVM}"/>
+    </Grid>
+</Window>

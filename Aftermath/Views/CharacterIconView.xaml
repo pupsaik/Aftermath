@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="Aftermath.Views.CharacterIconView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aftermath.Views"
+             xmlns:convs="clr-namespace:Aftermath.UI.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="175" d:DesignWidth="250">
+
+    <UserControl.Resources>
+        <convs:CharacterImageConverter x:Key="CharacterImageConverter"/>
+        <convs:StatusImageConverter x:Key="StatusImageConverter"/>
+        <convs:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <Style TargetType="Grid" x:Key="BackgroundGridStyle">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/Icons/BottomBarCharacterBackground.png"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/Icons/BottomBarCharacterBackgroundMouseOver.png"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Grid Width="250" Height="175" Style="{StaticResource BackgroundGridStyle}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ItemsControl ItemsSource="{Binding Statuses}" HorizontalAlignment="Left" Margin="20 7 0 0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding Converter={StaticResource StatusImageConverter}}" Height="20" Width="20" Margin="0 0 3 0"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock Text="{Binding Name}" Foreground="White" FontSize="18" HorizontalAlignment="Center" Margin="0 7 0 0"/>
+        <Image Grid.Row="1"
+           Source="{Binding Name, Converter={StaticResource CharacterImageConverter}}"
+           Width="125"
+           Height="125"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Bottom"
+           Margin="20 0 0 7"/>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0 30 20 0">
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+
+                
+                <TextBlock Text="{Binding CurrentHealth}" Foreground="White" Grid.Column="0" Margin="0,12,5,0" HorizontalAlignment="Right"/>
+
+                <StackPanel Grid.Column="1">
+                    <Image Source="pack://application:,,,/Resources/Icons/Items/Health.png" Height="15" Width="15"/>
+                    <Image Source="{Binding HealthBarIcon}"
+                   Width="70" Height="12" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding CurrentHunger}" Foreground="White" Grid.Column="0" Margin="0,12,5,0" HorizontalAlignment="Right"/>
+
+                <StackPanel Grid.Column="1">
+                    <Image Source="pack://application:,,,/Resources/Icons/Items/Hunger.png" Height="15" Width="15"/>
+                    <Image Source="{Binding HungerBarIcon}"
+                        Width="70" Height="12" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding CurrentThirst}" Foreground="White" Grid.Column="0" Margin="0,12,5,0" HorizontalAlignment="Right"/>
+
+                <StackPanel Grid.Column="1">
+                    <Image Source="pack://application:,,,/Resources/Icons/Items/Thirst.png" Height="15" Width="15"/>
+                    <Image Source="{Binding ThirstBarIcon}"
+                    Width="70" Height="12" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding CurrentSanity}" Foreground="White" Grid.Column="0" Margin="0,12,5,0" HorizontalAlignment="Right"/>
+
+                <StackPanel Grid.Column="1">
+                    <Image Source="pack://application:,,,/Resources/Icons/Items/Sanity.png" Height="15" Width="15"/>
+                    <Image Source="{Binding SanityBarIcon}"
+                    Width="70" Height="12" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <Image Source="pack://application:,,,/Resources/Icons/DeathIndicator.png" Grid.RowSpan="2" VerticalAlignment="Center" Visibility="{Binding IsDead, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+    </Grid>
+</UserControl>
