@@ -1,4 +1,4 @@
-# Фftermath
+# Aftermath
 
 **Aftermath** is a small homemade post-apocalyptic game created as an assignment for the *Software Modeling and Analysis* course.  
 Every single asset was hand-drawn by me.
